@@ -7,7 +7,7 @@ class ContentScraper {
   private $sources;
   private $niche;
 
-  public function __contrct($niche = 'tech') {
+  public function __construct($niche = 'tech') {
     $this->niche = $niche;
     $this->sources = ContentSources::getSources($niche);
   }

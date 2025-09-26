@@ -6,3 +6,24 @@
 [2025-09-26 09:10:07] Starting blog automation workflow
 [2025-09-26 09:10:07] Step 1: Researching trending topics
 [2025-09-26 09:10:07] ERROR: No suitable trending topic found
+[2025-09-26 09:49:42] Starting blog automation workflow
+[2025-09-26 09:49:42] Step 1: Researching trending topics
+[2025-09-26 09:49:42] ERROR: No suitable trending topic found
+[2025-09-26 09:50:39] Starting blog automation workflow
+[2025-09-26 09:50:39] Step 1: Researching trending topics
+[2025-09-26 09:50:47] Selected topic: Cloudflare Email Service: private beta (Score: 121.2968452381)
+[2025-09-26 09:50:50] Extracted 1278 words from source
+[2025-09-26 09:50:50] Step 2: Enhancing content with FREE AI (template)
+[2025-09-26 09:51:12] Starting blog automation workflow
+[2025-09-26 09:51:12] Step 1: Researching trending topics
+[2025-09-26 09:51:19] Selected topic: Cloudflare Email Service: private beta (Score: 121.29578703704)
+[2025-09-26 09:51:19] Extracted 1278 words from source
+[2025-09-26 09:51:19] Step 2: Enhancing content with FREE AI (template)
+[2025-09-26 09:51:19] Generated 381 words of enhanced content
+[2025-09-26 09:51:19] Step 3: Generating images
+[2025-09-26 09:51:19] Generated image prompts: {"featured_image":"Modern, professional illustration representing Everything You Need to Know About Cloudflare Email Service: private beta, clean design, tech-focused","supporting_images":["Infographic or diagram related to JavaScript, React","Abstract, modern illustration with tech theme, blue and gray colors"]}
+[2025-09-26 09:51:20] Generated 3 images
+[2025-09-26 09:51:20] Step 4: Building landing page
+[2025-09-26 09:51:20] Created page: 2025-09-26-everything-you-need-to-know-about-cloudflare-email-service-private-beta.html (603 bytes)
+[2025-09-26 09:51:20] Step 5: Sending email
+[2025-09-26 09:51:20] Email sent successfully with 4 attachments

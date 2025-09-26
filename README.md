@@ -119,3 +119,7 @@ blog-automation/
 │   └── cron.log          # Cron job logs
 └── index.php             # Main execution script
 ```
+
+## Sample Output
+
+![alt text](image.png)

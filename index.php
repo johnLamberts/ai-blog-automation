@@ -47,7 +47,7 @@ class BlogAutomation {
             
             // Step 2: Enhance content with AI
               $this->log("Step 2: Enhancing content with FREE AI (" . Config::AI_STRATEGY . ")");
-            $enhancer = new FreeAIEnhancer(Config::AI_STRATEGY);
+            $enhancer = new AIContentEnhancer(Config::AI_STRATEGY);
             $enhancedContent = $enhancer->enhanceContent($topic, $originalContent);
             
             if (!$enhancedContent) {

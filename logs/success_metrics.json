@@ -10,5 +10,17 @@
             "file_size": 586,
             "generation_time": 10.6
         }
+    },
+    {
+        "date": "2025-09-26 09:51:20",
+        "metrics": {
+            "topic": "Cloudflare Email Service: private beta",
+            "source": "Hacker News",
+            "word_count": 381,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": 603,
+            "generation_time": 7.8
+        }
     }
 ]
