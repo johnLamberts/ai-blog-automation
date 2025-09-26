@@ -1,1 +1,16 @@
+# Ignore environment variables
 .env
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore output files
+output/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore vendor if using composer
+/vendor/
