@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/sources.php';
 
-class ContentScaper {
+class ContentScraper {
   private $sources;
   private $niche;
 

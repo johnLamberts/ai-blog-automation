@@ -2,7 +2,7 @@
 <?php 
 
 class ContentSources {
-  public static function getSources($niche = 'tech') {
+    public static function getSources($niche = 'tech') {
         $sources = [
             'tech' => [
                 'hacker_news' => [
@@ -54,6 +54,5 @@ class ContentSources {
         return $keywords[$niche] ?? $keywords['tech'];
     }
 }
-
 
 ?>

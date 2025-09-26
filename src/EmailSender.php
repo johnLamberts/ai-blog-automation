@@ -1,42 +1,37 @@
-<?php 
-
-
+<?php
+// src/EmailSender.php
 require_once __DIR__ . '/../config/config.php';
 
 class EmailSender {
-  private $smtpHost;
-  private $SMTP_PASS;
-  private $smtpUser;
-  private $smtpPass;
-  private $recipientEmail;
-
-
-  public function __construct() {
-    $this->smtpHost = Config::SMTP_HOST;
-    $this->$smtpPort = Config::SMTP_PORT;
-    $this->$smtpUser = Config::SMTP_USER;
-    $this->SMTP_PASS = Config::SMTP_PASS;
-    $this->$recipientEmail = Config::RECIPIENT_EMAIL;
-  }
-
-  public function sendBlogEmail($pageData, $blogData, $images) {
-    $subject = "Daily Automated Content: " . $blogData['title'];
-
-    // Create email body
-    $emailBody = $this->createEmailBody($pageData, $blogData, $images);
+    private $smtpHost;
+    private $smtpPort;
+    private $smtpUser;
+    private $smtpPass;
+    private $recipientEmail;
     
-    // Prepare attachments
-    $attachments = $this->prepareAttachments($pageData, $images);
-
-    // Send email
-    return $this->sendEmail($subject, $emailBody, $images);
-  }
-
-
-
-  private function createEmailBody($pageData, $blogData, $images) {
-    $html = '
-    <!DOCTYPE html>
+    public function __construct() {
+        $this->smtpHost = Config::SMTP_HOST;
+        $this->smtpPort = Config::SMTP_PORT;
+        $this->smtpUser = Config::SMTP_USER;
+        $this->smtpPass = Config::SMTP_PASS;
+        $this->recipientEmail = Config::RECIPIENT_EMAIL;
+    }
+    
+    public function sendBlogEmail($pageData, $blogData, $images) {
+        $subject = "Daily Blog: " . $blogData['title'];
+        
+        // Create email body
+        $emailBody = $this->createEmailBody($pageData, $blogData, $images);
+        
+        // Prepare attachments
+        $attachments = $this->prepareAttachments($pageData, $images);
+        
+        // Send email
+        return $this->sendEmail($subject, $emailBody, $attachments);
+    }
+    
+    private function createEmailBody($pageData, $blogData, $images) {
+        $html = '<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -186,36 +181,33 @@ class EmailSender {
     </div>
 </body>
 </html>';
-    return $html;
-  }
 
-
-  private function generateTagsHtml($tags) {
-    $html = '';
-    
-    foreach ($tags as $tag) {
-      $html += '<span class="tag">' . htmlspecialchars($tag) . '</span>';
+        return $html;
     }
     
-    return $html;
-
-  }
-
-  private function generateAttachmentList($images) {
-    $html = '';
-
-    if ($images['featured']) {
+    private function generateTagsHtml($tags) {
+        $html = '';
+        foreach ($tags as $tag) {
+            $html .= '<span class="tag">' . htmlspecialchars($tag) . '</span>';
+        }
+        return $html;
+    }
+    
+    private function generateAttachmentList($images) {
+        $html = '';
+        
+        if ($images['featured']) {
             $html .= '<li>Featured Image: ' . htmlspecialchars($images['featured']['filename']) . '</li>';
-    }
+        }
         
-    foreach ($images['supporting'] as $index => $image) {
-      $html .= '<li>Supporting Image ' . ($index + 1) . ': ' . htmlspecialchars($image['filename']) . '</li>';
-    }
+        foreach ($images['supporting'] as $index => $image) {
+            $html .= '<li>Supporting Image ' . ($index + 1) . ': ' . htmlspecialchars($image['filename']) . '</li>';
+        }
         
-    return $html;
-  }
-
-   private function generateImagePreview($images) {
+        return $html;
+    }
+    
+    private function generateImagePreview($images) {
         $html = '<h3>🖼️ Generated Images</h3><div style="display: flex; gap: 10px; flex-wrap: wrap;">';
         
         if ($images['featured']) {
@@ -229,7 +221,7 @@ class EmailSender {
         $html .= '</div>';
         return $html;
     }
-
+    
     private function createImagePreviewHtml($image, $label) {
         if ($image['source'] === 'generated' && isset($image['path'])) {
             // For SVG images, embed them directly
@@ -250,7 +242,7 @@ class EmailSender {
             </div>';
         }
     }
-
+    
     private function prepareAttachments($pageData, $images) {
         $attachments = [];
         
@@ -283,7 +275,7 @@ class EmailSender {
         return $attachments;
     }
     
-      private function getMimeType($filepath) {
+    private function getMimeType($filepath) {
         $extension = pathinfo($filepath, PATHINFO_EXTENSION);
         
         $mimeTypes = [
@@ -349,8 +341,8 @@ class EmailSender {
             ];
         }
     }
-
-     public function sendErrorEmail($error, $context = []) {
+    
+    public function sendErrorEmail($error, $context = []) {
         $subject = "Blog Automation Error - " . date('Y-m-d H:i:s');
         
         $body = '<html><body style="font-family: Arial, sans-serif;">';
@@ -370,8 +362,26 @@ class EmailSender {
         
         return mail($this->recipientEmail, $subject, $body, $headers);
     }
+    
+    public function sendTestEmail() {
+        $subject = "Blog Automation Test - System Working";
+        
+        $body = '<html><body style="font-family: Arial, sans-serif;">';
+        $body .= '<h2 style="color: #46a758;">✅ Blog Automation System Test</h2>';
+        $body .= '<p>This is a test email to confirm the system is working properly.</p>';
+        $body .= '<p><strong>Time:</strong> ' . date('Y-m-d H:i:s') . '</p>';
+        $body .= '<p><strong>Configuration:</strong></p>';
+        $body .= '<ul>';
+        $body .= '<li>Niche: ' . Config::NICHE . '</li>';
+        $body .= '<li>Daily run time: ' . Config::DAILY_RUN_TIME . '</li>';
+        $body .= '<li>Target word count: ' . Config::TARGET_WORD_COUNT . '</li>';
+        $body .= '</ul>';
+        $body .= '<p>Next automated run will be tomorrow at ' . Config::DAILY_RUN_TIME . '</p>';
+        $body .= '</body></html>';
+        
+        $headers = "From: " . $this->smtpUser . "\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        
+        return mail($this->recipientEmail, $subject, $body, $headers);
+    }
 }
-
-
-
-?>
