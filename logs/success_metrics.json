@@ -82,5 +82,29 @@
             "file_size": "24.43 KB",
             "generation_time": 10.68
         }
+    },
+    {
+        "date": "2025-09-27 08:36:56",
+        "metrics": {
+            "topic": "Britain to introduce compulsory digital ID for workers",
+            "source": "Hacker News",
+            "word_count": 397,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": "24.5 KB",
+            "generation_time": 9.68
+        }
+    },
+    {
+        "date": "2025-09-27 08:40:00",
+        "metrics": {
+            "topic": "Britain to introduce compulsory digital ID for workers",
+            "source": "Hacker News",
+            "word_count": 400,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": "25.86 KB",
+            "generation_time": 9.54
+        }
     }
 ]

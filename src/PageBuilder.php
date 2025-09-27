@@ -57,11 +57,6 @@ class PageBuilder {
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{CURRENT_URL}}">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{BLOG_TITLE}}">
-    <meta name="twitter:description" content="{{META_DESCRIPTION}}">
-    
     <style>
         :root {
             --gray-1: #fcfcfd;
@@ -117,8 +112,6 @@ class PageBuilder {
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             min-height: 100vh;
         }
@@ -127,16 +120,17 @@ class PageBuilder {
             width: 280px;
             background-color: var(--gray-2);
             border-right: 1px solid var(--gray-6);
-            padding: 24px;
+            padding: 24px 20px;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            z-index: 100;
         }
         
         .main-content {
             flex: 1;
             margin-left: 280px;
-            padding: 0;
+            min-width: 0;
         }
         
         .header {
@@ -148,7 +142,7 @@ class PageBuilder {
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 50;
         }
         
         .logo {
@@ -158,19 +152,80 @@ class PageBuilder {
             text-decoration: none;
         }
         
-        .theme-toggle {
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .theme-toggle, .menu-toggle {
             background: var(--gray-3);
             border: 1px solid var(--gray-6);
             border-radius: 6px;
-            padding: 8px;
+            padding: 8px 12px;
             cursor: pointer;
             color: var(--gray-11);
             transition: all 0.2s ease;
+            font-size: 16px;
         }
         
-        .theme-toggle:hover {
+        .theme-toggle:hover, .menu-toggle:hover {
             background: var(--gray-4);
             color: var(--gray-12);
+        }
+        
+        .menu-toggle {
+            display: none;
+        }
+        
+        .generation-info {
+            background: var(--gray-3);
+            border: 1px solid var(--gray-6);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--gray-10);
+            text-align: center;
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-menu li {
+            margin: 2px 0;
+        }
+        
+        .nav-menu a {
+            color: var(--gray-11);
+            text-decoration: none;
+            padding: 10px 12px;
+            border-radius: 6px;
+            display: block;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+        
+        .nav-menu a:hover {
+            background: var(--gray-4);
+            color: var(--gray-12);
+        }
+        
+        .nav-menu a.active {
+            background: var(--blue-9);
+            color: white;
+        }
+        
+        .nav-menu .nav-level-2 {
+            padding-left: 24px;
+        }
+        
+        .nav-menu .nav-level-3 {
+            padding-left: 36px;
         }
         
         .article-header {
@@ -201,6 +256,30 @@ class PageBuilder {
             color: var(--gray-11);
             max-width: 600px;
             line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: var(--gray-3);
+            color: var(--gray-11);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--gray-6);
+            transition: all 0.2s ease;
+        }
+        
+        .tag:hover {
+            background: var(--gray-4);
+            color: var(--gray-12);
         }
         
         .article-content {
@@ -224,7 +303,14 @@ class PageBuilder {
             margin-bottom: 16px;
             font-weight: 600;
             color: var(--gray-12);
-            scroll-margin-top: 80px;
+            scroll-margin-top: 100px;
+            position: relative;
+        }
+        
+        .article-content h1:first-child,
+        .article-content h2:first-child,
+        .article-content h3:first-child {
+            margin-top: 0;
         }
         
         .article-content h1 {
@@ -267,7 +353,7 @@ class PageBuilder {
             padding: 20px;
             margin: 24px 0;
             overflow-x: auto;
-            font-family: "SF Mono", Monaco, "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-family: "SF Mono", Monaco, "Inconsolata", "Roboto Mono", monospace;
             font-size: 14px;
         }
         
@@ -276,7 +362,7 @@ class PageBuilder {
             border: 1px solid var(--gray-6);
             border-radius: 4px;
             padding: 2px 6px;
-            font-family: "SF Mono", Monaco, "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-family: "SF Mono", Monaco, "Inconsolata", "Roboto Mono", monospace;
             font-size: 13px;
             color: var(--gray-12);
         }
@@ -317,6 +403,10 @@ class PageBuilder {
             margin: 0 0 12px 0 !important;
             font-size: 16px;
             font-weight: 600;
+        }
+        
+ 
+    }: 600;
         }
         
         .toc ul {
@@ -672,7 +762,7 @@ class PageBuilder {
             }
         }
         
-        // Prepare supporting images HTML
+        // Prepare supporting images HTML - insert them between sections
         $supportingImagesHtml = '';
         foreach ($images['supporting'] as $index => $image) {
             if ($image['source'] === 'generated') {
@@ -688,8 +778,8 @@ class PageBuilder {
         if (!empty($blogData['table_of_contents'])) {
             $tocHtml = '<div class="toc"><h3>Table of Contents</h3><ul>';
             foreach ($blogData['table_of_contents'] as $item) {
-                $indent = str_repeat('  ', ($item['level'] - 1) * 2);
-                $tocHtml .= $indent . '<li><a href="#' . $item['id'] . '">' . htmlspecialchars($item['heading']) . '</a></li>';
+                $indent = ($item['level'] - 1) * 16; // 16px per level
+                $tocHtml .= '<li><a href="#heading-' . $item['id'] . '" style="padding-left: ' . $indent . 'px;">' . htmlspecialchars($item['heading']) . '</a></li>';
             }
             $tocHtml .= '</ul></div>';
         }
@@ -702,19 +792,9 @@ class PageBuilder {
             }
         }
         
-        // Generate navigation items
-        $navItemsHtml = '';
-        if (!empty($blogData['table_of_contents'])) {
-            foreach ($blogData['table_of_contents'] as $item) {
-                if ($item['level'] <= 3) { // Only show H1, H2, H3 in navigation
-                    $navItemsHtml .= '<li><a href="#' . $item['id'] . '" class="nav-link">' . htmlspecialchars($item['heading']) . '</a></li>';
-                }
-            }
-        }
-        
-        // Prepare content with proper IDs for table of contents
+        // Prepare content with proper IDs and insert supporting images
         $contentWithIds = $this->addIdsToContent($blogData['content'], $blogData['table_of_contents']);
-        $contentWithImages = $contentWithIds . $supportingImagesHtml;
+        $contentWithImages = $this->insertSupportingImages($contentWithIds, $supportingImagesHtml);
         
         return [
             'BLOG_TITLE' => htmlspecialchars($blogData['title']),
@@ -725,12 +805,11 @@ class PageBuilder {
             'FEATURED_IMAGE_HTML' => $featuredImageHtml,
             'TABLE_OF_CONTENTS_HTML' => $tocHtml,
             'TAGS' => $tagsHtml,
-            'NAVIGATION_ITEMS' => $navItemsHtml,
             'PUBLISH_DATE' => date('F j, Y'),
             'READ_TIME' => $blogData['read_time'] ?? 5,
             'CATEGORY' => ucfirst(Config::NICHE),
             'WORD_COUNT' => number_format($blogData['word_count'] ?? 0),
-            'GENERATION_DATE' => $blogData['generated_at'] ?? date('Y-m-d H:i:s'),
+            'GENERATION_DATE' => date('M j, Y \a\t g:i A', strtotime($blogData['generated_at'] ?? 'now')),
             'SOURCE_NAME' => $blogData['source_topic']['source'] ?? 'Unknown',
             'CURRENT_URL' => Config::BASE_URL . 'output/' . $this->generateFilename($blogData['title'])
         ];
@@ -738,16 +817,64 @@ class PageBuilder {
     
     private function addIdsToContent($content, $toc) {
         if (empty($toc)) {
+            // If no TOC provided, generate IDs for all headings
+            $content = preg_replace_callback(
+                '/<(h[1-6])[^>]*>(.*?)<\/h[1-6]>/i',
+                function($matches) {
+                    static $counter = 0;
+                    $headingTag = $matches[1];
+                    $headingText = $matches[2];
+                    $id = 'heading-' . $counter++;
+                    return '<' . $headingTag . ' id="' . $id . '">' . $headingText . '</' . $headingTag . '>';
+                },
+                $content
+            );
             return $content;
         }
         
+        // Use provided TOC to add IDs
+        $counter = 0;
         foreach ($toc as $item) {
-            $pattern = '/(<h' . $item['level'] . '[^>]*>)(' . preg_quote($item['heading'], '/') . ')(<\/h' . $item['level'] . '>)/i';
-            $replacement = '$1<span id="' . $item['id'] . '"></span>$2$3';
+            $headingText = preg_quote($item['heading'], '/');
+            $level = $item['level'];
+            $id = 'heading-' . $counter++;
+            
+            $pattern = '/(<h' . $level . '[^>]*>)(' . $headingText . ')(<\/h' . $level . '>)/i';
+            $replacement = '$1<span id="' . $id . '"></span>$2$3';
             $content = preg_replace($pattern, $replacement, $content, 1);
         }
         
         return $content;
+    }
+    
+    private function insertSupportingImages($content, $supportingImagesHtml) {
+        if (empty($supportingImagesHtml)) {
+            return $content;
+        }
+        
+        // Split content into sections (by h2 tags)
+        $sections = preg_split('/(<h2[^>]*>.*?<\/h2>)/i', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+        
+        // Insert images between sections
+        $result = '';
+        $imageInserted = false;
+        
+        foreach ($sections as $index => $section) {
+            $result .= $section;
+            
+            // Insert image after every 2-3 sections (but not at the very beginning or end)
+            if (!$imageInserted && $index > 2 && preg_match('/<h2[^>]*>/i', $section)) {
+                $result .= $supportingImagesHtml;
+                $imageInserted = true;
+            }
+        }
+        
+        // If no image was inserted, add it at the end
+        if (!$imageInserted) {
+            $result .= $supportingImagesHtml;
+        }
+        
+        return $result;
     }
     
     private function replacePlaceholders($template, $data) {
