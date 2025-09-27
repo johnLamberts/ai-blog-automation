@@ -15,7 +15,7 @@ class Config {
   const CONTENT_FRESHNESS_HOURS = 24;
 
   // Free AI Options
-  const AI_STRATEGY = 'template';
+  const AI_STRATEGY = 'huggingface';
   // AI API - OpenAI
   // const OPENAI_API_KEY = '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';
   // const OPENAI_MODEL = 'cheaper_option_model_gtp-3.5-turbo';

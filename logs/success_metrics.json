@@ -22,5 +22,65 @@
             "file_size": 603,
             "generation_time": 7.8
         }
+    },
+    {
+        "date": "2025-09-27 01:49:03",
+        "metrics": {
+            "topic": "PostgreSQL 18 Released!",
+            "source": "Reddit",
+            "word_count": 371,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": 561,
+            "generation_time": 12.4
+        }
+    },
+    {
+        "date": "2025-09-27 08:15:01",
+        "metrics": {
+            "topic": "PostgreSQL 18 Released!",
+            "source": "Reddit",
+            "word_count": 374,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": 7304,
+            "generation_time": 12.01
+        }
+    },
+    {
+        "date": "2025-09-27 08:23:56",
+        "metrics": {
+            "topic": "Britain to introduce compulsory digital ID for workers",
+            "source": "Hacker News",
+            "word_count": 385,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": "24.39 KB",
+            "generation_time": 9.74
+        }
+    },
+    {
+        "date": "2025-09-27 08:26:10",
+        "metrics": {
+            "topic": "Britain to introduce compulsory digital ID for workers",
+            "source": "Hacker News",
+            "word_count": 392,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": "24.78 KB",
+            "generation_time": 9.66
+        }
+    },
+    {
+        "date": "2025-09-27 08:27:52",
+        "metrics": {
+            "topic": "Britain to introduce compulsory digital ID for workers",
+            "source": "Hacker News",
+            "word_count": 396,
+            "read_time": 2,
+            "images_count": 3,
+            "file_size": "24.43 KB",
+            "generation_time": 10.68
+        }
     }
 ]
